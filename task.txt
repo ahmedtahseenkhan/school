@@ -1,0 +1,381 @@
+
+
+
+
+// Features:
+- Multi-step form for employee creation/editing
+- Personal information section
+- Employment details section
+- Bank information section
+- Emergency contacts section
+- Document upload section
+- Form validation
+- Save as draft functionality
+
+Employee Profile
+
+
+// Features:
+- Tabbed interface (Personal, Employment, Documents, History)
+- Employee photo and basic info header
+- Qualifications and skills sections
+- Employment history timeline
+- Document management
+- Quick actions (edit, print profile)
+
+
+
+// Features:
+- Reusable card component for employee display
+- Photo, name, designation, department
+- Contact information
+- Status badge
+- Quick action buttons
+- Used in lists and search results
+2. Attendance Management Pages
+
+
+
+// Features:
+- Daily attendance marking interface
+- Bulk attendance marking
+- Check-in/check-out functionality
+- Late arrival tracking
+- Absence marking with reasons
+- Real-time updates
+- Department/class wise grouping
+
+
+
+// Features:
+- Date range filters
+- Department/employee filters
+- Summary statistics (present, absent, late, overtime)
+- Detailed report table
+- Export to PDF/Excel
+- Charts and graphs (attendance trends)
+- Custom report builder
+
+
+// Features:
+- Monthly calendar view
+- Color-coded attendance status
+- Hover details for each day
+- Bulk approval for regularization
+- Leave integration
+- Department/team views
+Regularization Requests
+
+
+// Features:
+- Pending requests list
+- Request details modal
+- Approval/rejection workflow
+- History of processed requests
+- Filter by date, employee, status
+- Bulk approval actions
+
+
+3. Leave Management Pages
+
+// Features:
+- Leave type selection with available balance
+- Date range picker with day count
+- Reason and documentation upload
+- Approver selection
+- Save as draft
+- Application history
+- Balance display
+
+Leave Balance
+
+
+// Features:
+- Leave type cards with available/taken/balance
+- Year selection
+- Carry forward display
+- History of leave taken
+- Graphical representation
+- Export functionality
+
+Leave Calendar
+
+
+// Features:
+- Team/department leave calendar
+- Color-coded by leave type
+- Employee absence overview
+- Approval status indicators
+- Filter by department/leave type
+- Print calendar option
+
+Leave pproval
+
+
+// Features:
+- Pending approvals list
+- Quick approve/reject actions
+- Bulk operations
+- Approval history
+- Delegation settings
+- Email notifications
+4. Payroll Management Pages
+
+Payroll Processing
+
+
+// Features:
+- Payroll period selection
+- Employee list with salary components
+- Automatic calculation preview
+- Manual adjustments
+- Approval workflow
+- Process and lock payroll
+- History of processed payrolls
+ 
+ Salary Structure
+
+
+// Features:
+- Employee salary components
+- Grade-wise salary structure
+- Allowance and deduction types
+- Tax configuration
+- Increment history
+- Comparative analysis
+
+Payslip Generator
+
+
+// Features:
+- Select employee and period
+- Preview payslip
+- Customize template
+- Bulk payslip generation
+- Email payslips
+- Download/print options
+
+Loan Management
+
+
+// Features:
+- Loan application interface
+- Approval workflow
+- EMI calculation
+- Repayment schedule
+- Loan statement
+- Foreclosure options
+5. Performance Management Pages
+
+Goal Setting
+
+
+// Features:
+- Create and assign goals
+- SMART goal templates
+- Progress tracking
+- Manager approval
+- Goal alignment
+- Performance indicators
+
+Appraisal Cycles
+
+
+// Features:
+- Create appraisal cycles
+- Assign reviewers
+- Track completion status
+- Performance ratings summary
+- Cycle configuration
+- Reports and analytics
+ 
+ Performance Review
+
+
+// Features:
+- Review form with KPIs
+- 360-degree feedback
+- Rating scales
+- Comments and recommendations
+- Self-assessment
+- Final rating calculation
+
+
+Training Management
+
+
+// Features:
+- Training program catalog
+- Enrollment management
+- Attendance tracking
+- Feedback collection
+- Certificate generation
+- Training needs analysis
+6. Recruitment Management Pages
+
+Job Postings
+
+
+// Features:
+- Create and edit job postings
+- Publishing workflow
+- Application tracking
+- Candidate communication
+- Status management
+- Analytics and reports
+
+Applicant Tracking
+
+
+// Features:
+- Applicant pipeline (applied, screening, interview, offered, hired)
+- Candidate profiles
+- Resume parsing
+- Communication history
+- Interview scheduling
+- Offer management
+
+Interview Scheduling
+
+
+// Features:
+- Calendar for interviews
+- Panel member assignment
+- Candidate availability
+- Automated reminders
+- Feedback collection
+- Rescheduling options
+
+Onboarding Checklist
+
+
+// Features:
+- Customizable onboarding templates
+- Task assignment and tracking
+- Document collection
+- Progress monitoring
+- Welcome kit management
+- Completion certificates
+Permission Management Interface
+1. Permission Assignment Components
+
+Permission Manager
+
+
+// Features:
+- Role-based permission assignment
+- Module-wise permission toggles
+- User-specific permission overrides
+- Permission inheritance
+- Bulk permission updates
+- Permission testing interface
+
+Role Permissions
+
+
+// Features:
+- Create/edit roles
+- Assign permissions to roles
+- Role hierarchy management
+- Copy permissions from existing roles
+- Export/import role configurations
+
+User Permissions
+
+
+// Features:
+- Search and select users
+- View current permissions
+- Add/remove specific permissions
+- Temporary permission grants
+- Permission audit trail
+2. Permission Configuration Interface
+pages/admin/permissions/PermissionDashboard
+
+
+// Features:
+- Overview of permission usage
+- Recent permission changes
+- Permission conflicts alert
+- User access reports
+- Security compliance check
+
+Role Manager
+
+
+// Features:
+- List all roles with user counts
+- Create new role wizard
+- Role duplication
+- Permission matrix view
+- Role deletion with reassignment
+
+User Access Manager
+
+
+// Features:
+- User search and filter
+- Bulk permission assignment
+- Access review cycles
+- Permission export
+- Access violation reports
+
+3. Route Protection Implementation
+middleware/RouteGuard
+
+
+// Features:
+- Permission-based route protection
+- Role-based access control
+- Conditional rendering based on permissions
+- Redirect for unauthorized access
+- Permission checking utility
+hooks/usePermissions.js
+
+
+// Features:
+- Check user permissions
+- Permission change listeners
+- Permission caching
+- Bulk permission checks
+- Permission debugging
+Required API Integration
+HR Module APIs
+javascript
+// Employees
+GET    /api/hr/employees
+POST   /api/hr/employees
+GET    /api/hr/employees/:id
+PUT    /api/hr/employees/:id
+DELETE /api/hr/employees/:id
+
+// Attendance
+POST   /api/hr/attendance/mark
+GET    /api/hr/attendance/report
+POST   /api/hr/attendance/regularize
+
+// Leave
+POST   /api/hr/leave/apply
+GET    /api/hr/leave/balance
+PUT    /api/hr/leave/approve/:id
+
+// Payroll
+POST   /api/hr/payroll/process
+GET    /api/hr/payroll/payslip
+GET    /api/hr/payroll/history
+
+// Performance
+POST   /api/hr/performance/goals
+GET    /api/hr/performance/reviews
+PUT    /api/hr/performance/feedback
+
+// Recruitment
+POST   /api/hr/recruitment/jobs
+GET    /api/hr/recruitment/applicants
+PUT    /api/hr/recruitment/interview
+
+// Permissions
+GET    /api/permissions/roles
+POST   /api/permissions/roles
+PUT    /api/permissions/users/:id/permissions
+GET    /api/permissions/check

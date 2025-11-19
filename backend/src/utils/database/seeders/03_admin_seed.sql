@@ -1,0 +1,1 @@
+-- Admin bootstrap is handled in service when first user is created.

@@ -1,0 +1,130 @@
+INSERT INTO permissions (name, description, module) VALUES
+  ('*:manage','Full system management','system'),
+  ('system:configure','Configure system settings','system'),
+  ('user:create','Create users','user'),
+  ('user:read','Read users','user'),
+  ('user:update','Update users','user'),
+  ('user:delete','Delete users','user'),
+  ('user:read_own_profile','Read own profile','user'),
+  ('user:update_own_profile','Update own profile','user'),
+  ('branch:manage','Manage branches','branch'),
+  ('role:read','Read roles','role'),
+  ('teacher:delete','Delete teachers','teacher'),
+  ('student:delete','Delete students','student'),
+  ('student:read','Read students','student'),
+  ('parent:read','Read parents','parent'),
+  -- HR module access permission (paired with modules seeder)
+  ('module:hr:access','Access HR module','modules'),
+  -- HR Employees
+  ('hr.employee:create','Create employees','hr'),
+  ('hr.employee:read','Read employees','hr'),
+  ('hr.employee:update','Update employees','hr'),
+  ('hr.employee:delete','Delete employees','hr'),
+  -- HR Attendance
+  ('hr.attendance:mark','Mark attendance','hr'),
+  ('hr.attendance:report','View attendance reports','hr'),
+  ('hr.attendance:regularize','Regularize attendance','hr'),
+  -- HR Leave
+  ('hr.leave:apply','Apply for leave','hr'),
+  ('hr.leave:read','Read leave applications/balances','hr'),
+  ('hr.leave:approve','Approve/reject leaves','hr'),
+  -- HR Payroll
+  ('hr.payroll:process','Process payroll','hr'),
+  ('hr.payroll:read','Read payroll and payslips','hr'),
+  -- HR Masters: Departments
+  ('hr.department:create','Create departments','hr'),
+  ('hr.department:read','Read departments','hr'),
+  ('hr.department:update','Update departments','hr'),
+  ('hr.department:delete','Delete departments','hr'),
+  -- HR Masters: Designations
+  ('hr.designation:create','Create designations','hr'),
+  ('hr.designation:read','Read designations','hr'),
+  ('hr.designation:update','Update designations','hr'),
+  ('hr.designation:delete','Delete designations','hr'),
+  -- HR Masters: Leave Types
+  ('hr.leave_type:create','Create leave types','hr'),
+  ('hr.leave_type:read','Read leave types','hr'),
+  ('hr.leave_type:update','Update leave types','hr'),
+  ('hr.leave_type:delete','Delete leave types','hr'),
+  -- HR Masters: Shifts
+  ('hr.shift:create','Create shifts','hr'),
+  ('hr.shift:read','Read shifts','hr'),
+  ('hr.shift:update','Update shifts','hr'),
+  ('hr.shift:delete','Delete shifts','hr'),
+  -- HR Masters: Salary Components
+  ('hr.salary_component:create','Create salary components','hr'),
+  ('hr.salary_component:read','Read salary components','hr'),
+  ('hr.salary_component:update','Update salary components','hr'),
+  ('hr.salary_component:delete','Delete salary components','hr'),
+  -- HR Masters: Job Postings
+  ('hr.job_posting:create','Create job postings','hr'),
+  ('hr.job_posting:read','Read job postings','hr'),
+  ('hr.job_posting:update','Update job postings','hr'),
+  ('hr.job_posting:delete','Delete job postings','hr')
+ON CONFLICT (name) DO NOTHING;
+
+-- Additional HR domain permissions
+INSERT INTO permissions (name, description, module) VALUES
+  -- Recruitment: Applicants & Interviews
+  ('hr.applicant:create','Create job applicants','hr'),
+  ('hr.applicant:read','Read job applicants','hr'),
+  ('hr.applicant:update','Update job applicants','hr'),
+  ('hr.applicant:delete','Delete job applicants','hr'),
+  ('hr.interview:create','Create interview rounds','hr'),
+  ('hr.interview:read','Read interview rounds','hr'),
+  ('hr.interview:update','Update interview rounds','hr'),
+  ('hr.interview:delete','Delete interview rounds','hr'),
+  -- Onboarding
+  ('hr.onboarding_template:create','Create onboarding templates','hr'),
+  ('hr.onboarding_template:read','Read onboarding templates','hr'),
+  ('hr.onboarding_template:update','Update onboarding templates','hr'),
+  ('hr.onboarding_template:delete','Delete onboarding templates','hr'),
+  ('hr.onboarding_task:create','Create onboarding tasks','hr'),
+  ('hr.onboarding_task:read','Read onboarding tasks','hr'),
+  ('hr.onboarding_task:update','Update onboarding tasks','hr'),
+  ('hr.onboarding_task:delete','Delete onboarding tasks','hr'),
+  ('hr.employee_onboarding:create','Assign onboarding to employees','hr'),
+  ('hr.employee_onboarding:read','Read employee onboarding','hr'),
+  ('hr.employee_onboarding:update','Update employee onboarding','hr'),
+  ('hr.employee_onboarding:delete','Delete employee onboarding','hr'),
+  -- Finance
+  ('hr.loan:create','Create employee loans','hr'),
+  ('hr.loan:read','Read employee loans','hr'),
+  ('hr.loan:update','Update employee loans','hr'),
+  ('hr.loan:delete','Delete employee loans','hr'),
+  ('hr.loan_repayment:create','Create loan repayments','hr'),
+  ('hr.loan_repayment:read','Read loan repayments','hr'),
+  ('hr.loan_repayment:update','Update loan repayments','hr'),
+  ('hr.loan_repayment:delete','Delete loan repayments','hr'),
+  ('hr.reimbursement:create','Create reimbursements','hr'),
+  ('hr.reimbursement:read','Read reimbursements','hr'),
+  ('hr.reimbursement:update','Update reimbursements','hr'),
+  ('hr.reimbursement:delete','Delete reimbursements','hr'),
+  -- Structures
+  ('hr.leave_quota:create','Create leave quotas','hr'),
+  ('hr.leave_quota:read','Read leave quotas','hr'),
+  ('hr.leave_quota:update','Update leave quotas','hr'),
+  ('hr.leave_quota:delete','Delete leave quotas','hr'),
+  ('hr.salary_structure:create','Create salary structure entries','hr'),
+  ('hr.salary_structure:read','Read salary structure entries','hr'),
+  ('hr.salary_structure:update','Update salary structure entries','hr'),
+  ('hr.salary_structure:delete','Delete salary structure entries','hr'),
+  -- Devices & Shift Assignments
+  ('hr.attendance_device:create','Create attendance devices','hr'),
+  ('hr.attendance_device:read','Read attendance devices','hr'),
+  ('hr.attendance_device:update','Update attendance devices','hr'),
+  ('hr.attendance_device:delete','Delete attendance devices','hr'),
+  ('hr.employee_shift:create','Assign employee shifts','hr'),
+  ('hr.employee_shift:read','Read employee shift assignments','hr'),
+  ('hr.employee_shift:update','Update employee shift assignments','hr'),
+  ('hr.employee_shift:delete','Delete employee shift assignments','hr'),
+  -- Training
+  ('hr.training:create','Create training programs','hr'),
+  ('hr.training:read','Read training programs','hr'),
+  ('hr.training:update','Update training programs','hr'),
+  ('hr.training:delete','Delete training programs','hr'),
+  ('hr.training_participant:create','Create training participants','hr'),
+  ('hr.training_participant:read','Read training participants','hr'),
+  ('hr.training_participant:update','Update training participants','hr'),
+  ('hr.training_participant:delete','Delete training participants','hr')
+ON CONFLICT (name) DO NOTHING;
