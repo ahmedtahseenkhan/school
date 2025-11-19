@@ -118,11 +118,15 @@ export function Sidebar({ open = false, onClose }: { open?: boolean; onClose?: (
   }, [hasAny, loading]);
   return (
     <>
-      {/* Desktop sidebar */}
       <aside className="w-64 hidden lg:flex flex-col border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 min-h-screen">
-        <div className="h-14 flex items-center px-4 text-lg font-semibold">School Admin</div>
-        <nav className="px-2 py-3 space-y-4 text-xs font-semibold text-gray-500 dark:text-gray-400">
-          {visibleSections.map((section, idx) => {
+        <div className="h-14 flex items-center px-4">
+          <img 
+            src="https://thebenchmark.com.pk/wp-content/uploads/2025/10/School-Logo-High-Res-scaled-768x119.png" 
+            alt="School Logo"
+            className="h-8 w-auto object-contain"
+          />
+  </div>
+  <nav className="px-2 py-3 space-y-4 text-xs font-semibold text-gray-500 dark:text-gray-400">    {visibleSections.map((section, idx) => {
             const isRootSection = !section.label;
             const sectionKey = section.label || `section-${idx}`;
             const isOpen = isRootSection || openSection === sectionKey;

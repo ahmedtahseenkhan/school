@@ -78,7 +78,7 @@ DO $$ BEGIN
     SELECT 1 FROM information_schema.columns
     WHERE table_name = 'branches' AND column_name = 'country'
   ) THEN
-    ALTER TABLE branches ADD COLUMN country VARCHAR(100) DEFAULT 'India';
+    ALTER TABLE branches ADD COLUMN country VARCHAR(100) DEFAULT 'Pakistan';
   END IF;
 END $$;
 

@@ -53,7 +53,7 @@ export default function SuperAdminDashboard() {
                     <td className="px-4 py-2">{b.total_students}</td>
                     <td className="px-4 py-2">{b.total_staff}</td>
                     <td className="px-4 py-2">{b.active_users}</td>
-                    <td className="px-4 py-2">₹{(b.revenue || 0).toLocaleString()}</td>
+                    <td className="px-4 py-2">Rs.{(b.revenue || 0).toLocaleString()}</td>
                   </tr>
                 ))}
                 {!items.length && (

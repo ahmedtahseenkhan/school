@@ -23,12 +23,12 @@ export default function Dashboard() {
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <div className="rounded-xl border bg-white p-4 shadow-sm">
           <p className="text-xs font-medium text-gray-500">Monthly Fee Collection</p>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">₹ 2,45,000</p>
+          <p className="mt-2 text-2xl font-semibold text-gray-900">Rs.2,45,000</p>
           <p className="mt-1 text-xs text-emerald-600">▲ 8.2% vs last month</p>
         </div>
         <div className="rounded-xl border bg-white p-4 shadow-sm">
           <p className="text-xs font-medium text-gray-500">Outstanding Dues</p>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">₹ 75,120</p>
+          <p className="mt-2 text-2xl font-semibold text-gray-900">Rs.75,120</p>
           <p className="mt-1 text-xs text-rose-600">▼ 2.1% vs last month</p>
         </div>
         <div className="rounded-xl border bg-white p-4 shadow-sm">
@@ -91,7 +91,7 @@ export default function Dashboard() {
                 </span>
               </div>
               <div className="mx-auto mt-2 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-blue-500 text-xs font-semibold text-white">
-                ₹ 3.2L
+                Rs.3.2L
               </div>
               <div className="mt-4 space-y-2 text-xs text-gray-600">
                 <div className="flex items-center justify-between">
@@ -120,7 +120,7 @@ export default function Dashboard() {
                 </span>
               </div>
               <div className="mx-auto mt-2 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-rose-400 to-orange-400 text-xs font-semibold text-white">
-                ₹ 1.9L
+                Rs.1.9L
               </div>
               <div className="mt-4 space-y-2 text-xs text-gray-600">
                 <div className="flex items-center justify-between">

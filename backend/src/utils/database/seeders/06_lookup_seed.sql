@@ -35,7 +35,7 @@ ON CONFLICT DO NOTHING;
 
 -- Example nationalities (add more via UI later)
 INSERT INTO lookup_values(branch_id, category, code, name, sort_order) VALUES
- (NULL,'nationality','india','India',1),
+ (NULL,'nationality','Pakistan','Pakistan',1),
  (NULL,'nationality','other','Other',999)
 ON CONFLICT DO NOTHING;
 

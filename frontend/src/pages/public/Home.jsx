@@ -22,7 +22,7 @@ export default function Home() {
               SM
             </div>
             <div>
-              <div className="font-semibold text-gray-900">SmartSchool</div>
+              <div className="font-semibold text-gray-900">The Benchmark</div>
               <div className="text-xs text-gray-500">School Management System</div>
             </div>
           </div>
@@ -173,7 +173,7 @@ export default function Home() {
               <p className="text-slate-300 mb-6">
                 Need a demo or support? Our team will help you set up branches, roles and permissions.
               </p>
-              <p className="mb-1"><span className="font-semibold">Email:</span> support@smartschool.local</p>
+              <p className="mb-1"><span className="font-semibold">Email:</span> support@The Benchmark.local</p>
               <p className="mb-1"><span className="font-semibold">Phone:</span> +000 000 0000</p>
               <p><span className="font-semibold">Address:</span> Central Campus, Education City</p>
             </div>
@@ -204,7 +204,7 @@ export default function Home() {
 
       <footer className="border-t bg-slate-950 text-slate-300 text-xs">
         <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-2">
-          <div>© {new Date().getFullYear()} SmartSchool. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} The Benchmark. All rights reserved.</div>
           <div className="flex gap-4">
             <span>Privacy</span>
             <span>Terms</span>
