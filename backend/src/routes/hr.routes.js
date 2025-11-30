@@ -14,6 +14,7 @@ const fin = require('../modules/hr/controllers/finance.controller');
 const dev = require('../modules/hr/controllers/devices.controller');
 const shf = require('../modules/hr/controllers/shift_assignments.controller');
 const trn = require('../modules/hr/controllers/training.controller');
+const perf = require('../controllers/hr/performance.controller');
 
 const router = express.Router();
 
@@ -141,6 +142,21 @@ router.post('/interviews', requirePermission('hr.interview:create'), rec.createI
 router.put('/interviews/:id', requirePermission('hr.interview:update'), rec.updateInterview);
 router.delete('/interviews/:id', requirePermission('hr.interview:delete'), rec.deleteInterview);
 
+// Enhanced Recruitment Workflow
+router.get('/recruitment/applications', requirePermission('hr.applicant:read'), rec.listJobApplications);
+router.post('/recruitment/applications', requirePermission('hr.applicant:create'), rec.createJobApplication);
+router.put('/recruitment/applications/:id/stage', requirePermission('hr.applicant:update'), rec.updateApplicationStage);
+
+router.post('/recruitment/interviews/schedule', requirePermission('hr.interview:create'), rec.scheduleInterview);
+router.post('/recruitment/interviews/:id/feedback', requirePermission('hr.interview:update'), rec.submitInterviewFeedback);
+
+router.get('/recruitment/offers', requirePermission('hr.applicant:read'), rec.listOfferLetters);
+router.post('/recruitment/offers', requirePermission('hr.applicant:update'), rec.generateOfferLetter);
+router.put('/recruitment/offers/:id/status', requirePermission('hr.applicant:update'), rec.updateOfferStatus);
+
+router.get('/recruitment/communications', requirePermission('hr.applicant:read'), rec.listCommunications);
+router.post('/recruitment/communications', requirePermission('hr.applicant:update'), rec.logCommunication);
+
 // Onboarding
 router.get('/onboarding/templates', requirePermission('hr.onboarding_template:read'), onb.listTemplates);
 router.post('/onboarding/templates', requirePermission('hr.onboarding_template:create'), onb.createTemplate);
@@ -212,4 +228,36 @@ router.get('/training/participants', requirePermission('hr.training:read'), trn.
 router.post('/training/participants', requirePermission('hr.training:create'), trn.createParticipant);
 router.put('/training/participants/:id', requirePermission('hr.training:update'), trn.updateParticipant);
 router.delete('/training/participants/:id', requirePermission('hr.training:delete'), trn.deleteParticipant);
+
+// Performance Management Routes
+// Goals
+router.get('/performance/goals', requirePermission('hr.performance:read'), perf.listGoals);
+router.post('/performance/goals', requirePermission('hr.performance:create'), perf.createGoal);
+router.put('/performance/goals/:id', requirePermission('hr.performance:update'), perf.updateGoal);
+router.put('/performance/goals/:id/progress', requirePermission('hr.performance:update'), perf.updateGoalProgress);
+router.delete('/performance/goals/:id', requirePermission('hr.performance:delete'), perf.deleteGoal);
+
+// Appraisal Cycles
+router.get('/performance/appraisal-cycles', requirePermission('hr.performance:read'), perf.listAppraisalCycles);
+router.post('/performance/appraisal-cycles', requirePermission('hr.performance:create'), perf.createAppraisalCycle);
+router.put('/performance/appraisal-cycles/:id', requirePermission('hr.performance:update'), perf.updateAppraisalCycle);
+router.get('/performance/appraisal-cycles/:id/stats', requirePermission('hr.performance:read'), perf.getAppraisalCycleStats);
+
+// Performance Reviews
+router.get('/performance/reviews', requirePermission('hr.performance:read'), perf.listReviews);
+router.post('/performance/reviews', requirePermission('hr.performance:create'), perf.createReview);
+router.post('/performance/reviews/:id/self-assessment', requirePermission('hr.performance:update'), perf.submitSelfAssessment);
+router.post('/performance/reviews/:id/manager-assessment', requirePermission('hr.performance:update'), perf.submitManagerAssessment);
+router.post('/performance/reviews/:id/feedback', requirePermission('hr.performance:update'), perf.submitFeedback);
+router.post('/performance/reviews/:id/finalize', requirePermission('hr.performance:update'), perf.finalizeReview);
+
+// Training Programs (Performance-related, different from existing training routes)
+router.get('/performance/training/programs', requirePermission('hr.training:read'), perf.listTrainingPrograms);
+router.post('/performance/training/programs', requirePermission('hr.training:create'), perf.createTrainingProgram);
+router.put('/performance/training/programs/:id', requirePermission('hr.training:update'), perf.updateTrainingProgram);
+router.delete('/performance/training/programs/:id', requirePermission('hr.training:delete'), perf.deleteTrainingProgram);
+router.get('/performance/training/participants', requirePermission('hr.training:read'), perf.listParticipants);
+router.post('/performance/training/participants', requirePermission('hr.training:create'), perf.enrollParticipant);
+router.put('/performance/training/participants/:id', requirePermission('hr.training:update'), perf.updateParticipant);
+
 module.exports = router;
