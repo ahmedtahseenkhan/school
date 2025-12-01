@@ -13,6 +13,16 @@ INSERT INTO permissions (name, description, module) VALUES
   ('student:delete','Delete students','student'),
   ('student:read','Read students','student'),
   ('parent:read','Read parents','parent'),
+  -- Announcements
+  ('announcement:create','Create announcements','announcement'),
+  ('announcement:read','Read announcements','announcement'),
+  ('announcement:update','Update announcements','announcement'),
+  ('announcement:delete','Delete announcements','announcement'),
+  -- Branches
+  ('branch:create','Create branches','branch'),
+  ('branch:read','Read branches','branch'),
+  ('branch:update','Update branches','branch'),
+  ('branch:delete','Delete branches','branch'),
   -- HR module access permission (paired with modules seeder)
   ('module:hr:access','Access HR module','modules'),
   -- HR Employees
@@ -127,4 +137,51 @@ INSERT INTO permissions (name, description, module) VALUES
   ('hr.training_participant:read','Read training participants','hr'),
   ('hr.training_participant:update','Update training participants','hr'),
   ('hr.training_participant:delete','Delete training participants','hr')
+ON CONFLICT (name) DO NOTHING;
+
+INSERT INTO permissions (name, description, module) VALUES
+  -- Academics
+  ('academics.class:create','Create classes','academics'),
+  ('academics.class:read','Read classes','academics'),
+  ('academics.class:update','Update classes','academics'),
+  ('academics.class:delete','Delete classes','academics'),
+  ('academics.subject:create','Create subjects','academics'),
+  ('academics.subject:read','Read subjects','academics'),
+  ('academics.subject:update','Update subjects','academics'),
+  ('academics.subject:delete','Delete subjects','academics'),
+  ('academics.exam:create','Create exams','academics'),
+  ('academics.exam:read','Read exams','academics'),
+  ('academics.exam:update','Update exams','academics'),
+  ('academics.exam:delete','Delete exams','academics'),
+  
+  -- Fees
+  ('fees.structure:create','Create fee structures','fees'),
+  ('fees.structure:read','Read fee structures','fees'),
+  ('fees.structure:update','Update fee structures','fees'),
+  ('fees.structure:delete','Delete fee structures','fees'),
+  ('fees.invoice:create','Create invoices','fees'),
+  ('fees.invoice:read','Read invoices','fees'),
+  ('fees.invoice:update','Update invoices','fees'),
+  ('fees.invoice:delete','Delete invoices','fees'),
+  ('fees.payment:create','Record payments','fees'),
+  ('fees.payment:read','Read payments','fees'),
+  
+  -- Website
+  ('website.page:create','Create website pages','website'),
+  ('website.page:read','Read website pages','website'),
+  ('website.page:update','Update website pages','website'),
+  ('website.page:delete','Delete website pages','website'),
+  ('website.post:create','Create blog posts','website'),
+  ('website.post:read','Read blog posts','website'),
+  ('website.post:update','Update blog posts','website'),
+  ('website.post:delete','Delete blog posts','website'),
+  
+  -- Library
+  ('library.book:create','Add books','library'),
+  ('library.book:read','Read books','library'),
+  ('library.book:update','Update books','library'),
+  ('library.book:delete','Delete books','library'),
+  ('library.issue:create','Issue books','library'),
+  ('library.issue:read','Read issued books','library'),
+  ('library.issue:return','Return books','library')
 ON CONFLICT (name) DO NOTHING;

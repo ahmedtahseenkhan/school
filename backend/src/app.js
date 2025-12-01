@@ -19,7 +19,10 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', version: pkg.version || '0.1.0' });
 });
 
-app.use('/api', routes);
+app.use('/api/v1/hr', require('./routes/hr.routes'));
+app.use('/api/v1/super-admin', require('./routes/super-admin.routes'));
+app.use('/api/v1/rbac', require('./routes/rbac.routes'));
+app.use('/api/v1', routes); // Mount legacy routes under v1 too if needed, or check routes/index.js
 
 app.use(notFoundHandler);
 app.use(errorHandler);
