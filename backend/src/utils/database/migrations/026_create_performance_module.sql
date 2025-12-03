@@ -1,46 +1,9 @@
 -- Migration: 026_create_performance_module.sql
 -- Description: Creates tables for Performance Management (Goals, Appraisals, Reviews, Training)
 
--- Performance Goals Table
-CREATE TABLE IF NOT EXISTS performance_goals (
-    id SERIAL PRIMARY KEY,
-    employee_id INTEGER NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    
-    -- SMART Criteria
-    specific TEXT,
-    measurable TEXT,
-    achievable TEXT,
-    relevant TEXT,
-    time_bound DATE,
-    
-    -- Goal Details
-    category VARCHAR(50), -- INDIVIDUAL, TEAM, ORGANIZATIONAL
-    priority VARCHAR(20) DEFAULT 'MEDIUM', -- LOW, MEDIUM, HIGH
-    target_value DECIMAL(10,2),
-    current_value DECIMAL(10,2) DEFAULT 0,
-    unit VARCHAR(50), -- %, units, currency, etc.
-    
-    -- Tracking
-    progress INTEGER DEFAULT 0 CHECK (progress >= 0 AND progress <= 100),
-    status VARCHAR(20) DEFAULT 'DRAFT', -- DRAFT, ACTIVE, COMPLETED, CANCELLED
-    
-    -- Relationships
-    appraisal_cycle_id INTEGER REFERENCES appraisal_cycles(id) ON DELETE SET NULL,
-    parent_goal_id INTEGER REFERENCES performance_goals(id) ON DELETE SET NULL,
-    manager_id INTEGER REFERENCES employees(id) ON DELETE SET NULL,
-    
-    -- Metadata
-    branch_id INTEGER NOT NULL REFERENCES branches(id) ON DELETE CASCADE,
-    created_by INTEGER REFERENCES users(id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Appraisal Cycles Table
+-- Appraisal Cycles Table (created first as it's referenced by other tables)
 CREATE TABLE IF NOT EXISTS appraisal_cycles (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL,
     description TEXT,
     
@@ -64,18 +27,55 @@ CREATE TABLE IF NOT EXISTS appraisal_cycles (
     feedback_deadline DATE,
     
     -- Metadata
-    branch_id INTEGER NOT NULL REFERENCES branches(id) ON DELETE CASCADE,
-    created_by INTEGER REFERENCES users(id),
+    branch_id UUID NOT NULL REFERENCES branches(id) ON DELETE CASCADE,
+    created_by UUID REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Performance Goals Table
+CREATE TABLE IF NOT EXISTS performance_goals (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    employee_id UUID NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    
+    -- SMART Criteria
+    specific TEXT,
+    measurable TEXT,
+    achievable TEXT,
+    relevant TEXT,
+    time_bound DATE,
+    
+    -- Goal Details
+    category VARCHAR(50), -- INDIVIDUAL, TEAM, ORGANIZATIONAL
+    priority VARCHAR(20) DEFAULT 'MEDIUM', -- LOW, MEDIUM, HIGH
+    target_value DECIMAL(10,2),
+    current_value DECIMAL(10,2) DEFAULT 0,
+    unit VARCHAR(50), -- %, units, currency, etc.
+    
+    -- Tracking
+    progress INTEGER DEFAULT 0 CHECK (progress >= 0 AND progress <= 100),
+    status VARCHAR(20) DEFAULT 'DRAFT', -- DRAFT, ACTIVE, COMPLETED, CANCELLED
+    
+    -- Relationships
+    appraisal_cycle_id UUID REFERENCES appraisal_cycles(id) ON DELETE SET NULL,
+    parent_goal_id UUID REFERENCES performance_goals(id) ON DELETE SET NULL,
+    manager_id UUID REFERENCES employees(id) ON DELETE SET NULL,
+    
+    -- Metadata
+    branch_id UUID NOT NULL REFERENCES branches(id) ON DELETE CASCADE,
+    created_by UUID REFERENCES users(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Performance Reviews Table
 CREATE TABLE IF NOT EXISTS performance_reviews (
-    id SERIAL PRIMARY KEY,
-    employee_id INTEGER NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
-    appraisal_cycle_id INTEGER NOT NULL REFERENCES appraisal_cycles(id) ON DELETE CASCADE,
-    reviewer_id INTEGER REFERENCES employees(id) ON DELETE SET NULL,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    employee_id UUID NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
+    appraisal_cycle_id UUID NOT NULL REFERENCES appraisal_cycles(id) ON DELETE CASCADE,
+    reviewer_id UUID REFERENCES employees(id) ON DELETE SET NULL,
     
     -- Review Status
     status VARCHAR(20) DEFAULT 'PENDING', -- PENDING, SELF_COMPLETED, MANAGER_COMPLETED, FINALIZED
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS performance_reviews (
     final_rating DECIMAL(3,2),
     final_comments TEXT,
     finalized_at TIMESTAMP,
-    finalized_by INTEGER REFERENCES users(id),
+    finalized_by UUID REFERENCES users(id),
     
     -- Recommendations
     promotion_recommended BOOLEAN DEFAULT FALSE,
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS performance_reviews (
     training_recommended TEXT,
     
     -- Metadata
-    branch_id INTEGER NOT NULL REFERENCES branches(id) ON DELETE CASCADE,
+    branch_id UUID NOT NULL REFERENCES branches(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     
@@ -112,8 +112,8 @@ CREATE TABLE IF NOT EXISTS performance_reviews (
 
 -- Review Rating Criteria Table
 CREATE TABLE IF NOT EXISTS review_rating_criteria (
-    id SERIAL PRIMARY KEY,
-    appraisal_cycle_id INTEGER NOT NULL REFERENCES appraisal_cycles(id) ON DELETE CASCADE,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    appraisal_cycle_id UUID NOT NULL REFERENCES appraisal_cycles(id) ON DELETE CASCADE,
     
     -- Criteria Details
     name VARCHAR(255) NOT NULL,
@@ -130,9 +130,9 @@ CREATE TABLE IF NOT EXISTS review_rating_criteria (
 
 -- Review Ratings Table (Individual ratings for each criterion)
 CREATE TABLE IF NOT EXISTS review_ratings (
-    id SERIAL PRIMARY KEY,
-    review_id INTEGER NOT NULL REFERENCES performance_reviews(id) ON DELETE CASCADE,
-    criteria_id INTEGER NOT NULL REFERENCES review_rating_criteria(id) ON DELETE CASCADE,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    review_id UUID NOT NULL REFERENCES performance_reviews(id) ON DELETE CASCADE,
+    criteria_id UUID NOT NULL REFERENCES review_rating_criteria(id) ON DELETE CASCADE,
     
     -- Ratings
     self_rating INTEGER,
@@ -148,9 +148,9 @@ CREATE TABLE IF NOT EXISTS review_ratings (
 
 -- 360 Degree Feedback Table
 CREATE TABLE IF NOT EXISTS review_feedback (
-    id SERIAL PRIMARY KEY,
-    review_id INTEGER NOT NULL REFERENCES performance_reviews(id) ON DELETE CASCADE,
-    feedback_provider_id INTEGER NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    review_id UUID NOT NULL REFERENCES performance_reviews(id) ON DELETE CASCADE,
+    feedback_provider_id UUID NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
     
     -- Feedback Type
     feedback_type VARCHAR(20) NOT NULL, -- PEER, SUBORDINATE, MANAGER, EXTERNAL
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS review_feedback (
 
 -- Training Programs Table
 CREATE TABLE IF NOT EXISTS training_programs (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title VARCHAR(255) NOT NULL,
     description TEXT,
     
@@ -201,17 +201,17 @@ CREATE TABLE IF NOT EXISTS training_programs (
     total_budget DECIMAL(10,2),
     
     -- Metadata
-    branch_id INTEGER NOT NULL REFERENCES branches(id) ON DELETE CASCADE,
-    created_by INTEGER REFERENCES users(id),
+    branch_id UUID NOT NULL REFERENCES branches(id) ON DELETE CASCADE,
+    created_by UUID REFERENCES users(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Training Participants Table
 CREATE TABLE IF NOT EXISTS training_participants (
-    id SERIAL PRIMARY KEY,
-    training_program_id INTEGER NOT NULL REFERENCES training_programs(id) ON DELETE CASCADE,
-    employee_id INTEGER NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    training_program_id UUID NOT NULL REFERENCES training_programs(id) ON DELETE CASCADE,
+    employee_id UUID NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
     
     -- Enrollment
     enrollment_date DATE DEFAULT CURRENT_DATE,
@@ -246,8 +246,8 @@ CREATE TABLE IF NOT EXISTS training_participants (
 
 -- Goal Progress Updates Table (for tracking goal progress over time)
 CREATE TABLE IF NOT EXISTS goal_progress_updates (
-    id SERIAL PRIMARY KEY,
-    goal_id INTEGER NOT NULL REFERENCES performance_goals(id) ON DELETE CASCADE,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    goal_id UUID NOT NULL REFERENCES performance_goals(id) ON DELETE CASCADE,
     
     -- Progress Details
     previous_value DECIMAL(10,2),
@@ -256,7 +256,7 @@ CREATE TABLE IF NOT EXISTS goal_progress_updates (
     
     -- Update Details
     update_notes TEXT,
-    updated_by INTEGER REFERENCES users(id),
+    updated_by UUID REFERENCES users(id),
     update_date DATE DEFAULT CURRENT_DATE,
     
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
